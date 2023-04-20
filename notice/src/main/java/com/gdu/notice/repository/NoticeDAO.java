@@ -81,17 +81,17 @@ public class NoticeDAO {
 	// 전달된 NoticeDTO 객체의 값을 이용해서 NOTICE 테이블에 데이터를 삽입하시오. 삽입 결과를 반환하시오.
 	public int addNotice(NoticeDTO notice) {
 		int result = 0;
+		sql = "INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, ?, ?, ?)";
 		try {
 			con = getConnection();
-			sql = "INSERT INTO NOTICE VALUES(NOTICE_SEQ.NEXTVAL, ?, ?, ?, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'), TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS'))";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, notice.getGubun());
 			ps.setString(2, notice.getTitle());
 			ps.setString(3, notice.getContent());
 			result = ps.executeUpdate();
-		} catch (Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close();
 		}
 		return result;
